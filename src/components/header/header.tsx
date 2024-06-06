@@ -6,7 +6,8 @@ function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const isCommunityPage = location.pathname === "/board";
-  const isMarketPage = location.pathname === "/items";
+  const isMarketPage =
+    location.pathname === "/items" || location.pathname === "/additem"; // 수정된 부분
 
   const handleLoginButtonClick = () => {
     navigate("/login");
