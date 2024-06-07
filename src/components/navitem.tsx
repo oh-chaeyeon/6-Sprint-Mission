@@ -2,12 +2,13 @@ import { useLocation } from "react-router-dom";
 
 interface NavItemProps {
   to: string;
+  activePaths?: string[];
   children: React.ReactNode;
 }
 
-function NavItem({ to, children }: NavItemProps) {
+function NavItem({ to, activePaths = [], children }: NavItemProps) {
   const location = useLocation();
-  const isActive = location.pathname === to;
+  const isActive = [to, ...activePaths].includes(location.pathname);
 
   return (
     <li className="header-nav-item">

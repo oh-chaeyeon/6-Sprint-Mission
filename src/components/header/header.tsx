@@ -19,7 +19,9 @@ function Header() {
         <nav className="header-nav">
           <ul className="header-nav-container">
             <NavItem to="/board">자유게시판</NavItem>
-            <NavItem to="/items">중고마켓</NavItem>
+            <NavItem to="/items" activePaths={["/items", "/additem"]}>
+              중고마켓
+            </NavItem>
           </ul>
         </nav>
         <button className="header-login-btn" onClick={handleLoginButtonClick}>
