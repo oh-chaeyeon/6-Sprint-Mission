@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./allitem.css";
 import heart from "../../../assets/item/ic_heart.svg";
 import search from "../../../assets/item/ic_search.svg";
@@ -42,17 +42,16 @@ export default function AllItem() {
 
   const handleSortChange = (sortOption: string) => {
     setSortBy(sortOption);
-    console.log("sortBy 상태:", sortOption);
     toggleDropdown();
   };
 
   const sortOptions = ["recent", "favorite"];
 
-  const getCurrentItems = () => {
+  const currentItems = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     return sortedProducts.slice(startIndex, endIndex);
-  };
+  }, [sortedProducts, currentPage]);
 
   const totalPages = Math.ceil(sortedProducts.length / ITEMS_PER_PAGE);
   const goToPage = (page: number) => {
@@ -114,10 +113,10 @@ export default function AllItem() {
       </div>
 
       <div className="allitem">
-        {getCurrentItems().map((product: Product) => (
-          <div key={product.id} className="allitem-container">
+        {currentItems?.map((product: Product) => (
+          <div key={product?.id} className="allitem-container">
             <div className="allitem-image-nodata">
-              {product.images.map((image) => (
+              {product?.images?.map((image) => (
                 <img
                   className="allitem-image"
                   key={image}
@@ -127,18 +126,17 @@ export default function AllItem() {
               ))}
             </div>
             <div className="allitem-detail">
-              <h3 className="allitem-detail-name">{product.name}</h3>
-              <p className="allitem-detail-price">{product.price}원</p>
+              <h3 className="allitem-detail-name">{product?.name}</h3>
+              <p className="allitem-detail-price">{product?.price}원</p>
               <p className="allitem-detail-favorite">
                 <img src={heart} alt="하트 아이콘" />
-                <span>{product.favoriteCount}</span>
+                <span>{product?.favoriteCount}</span>
               </p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* 페이지 네이션 사용해보기...*/}
       <div className="pagination">
         <button
           className="pagination-btn"

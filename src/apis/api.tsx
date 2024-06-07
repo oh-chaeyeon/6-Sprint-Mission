@@ -1,5 +1,5 @@
 // api.tsx
-import { instance } from "./axios";
+import { instance } from "./apiManager";
 
 export const fetchProducts = async () => {
   try {
